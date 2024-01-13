@@ -18,6 +18,7 @@ import json
 import math
 import re
 import subprocess
+import glob
 
 from PIL import Image
 
@@ -70,7 +71,7 @@ def _run_ffmpeg(input_source_file, output_dirnames, cols, rows, cell_width,
     out, err = p.communicate()
     err = err.decode('utf8')
 
-    num_frames = int(re.search(r'frame=\s*(\d+)', err).group(1))
+    num_frames = len(glob.glob1('{}/'.format(output_dirnames['jpg']),"*.jpg"))
     hours, minutes, seconds = re.search(r'time=(\d{2}):(\d{2}):(\d{2}.\d{2})', err).groups()
     seconds = float(seconds) + (int(minutes) * 60) + (int(hours) * 3600)
     return num_frames, seconds
